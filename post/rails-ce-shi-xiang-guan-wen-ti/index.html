@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Rails测试相关问题 | Gridea</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://rubyyc.github.io/favicon.ico?v=1654829529051">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://rubyyc.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://rubyyc.github.io">
+        <img src="https://rubyyc.github.io/images/avatar.png?v=1654829529051" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://rubyyc.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Rails测试相关问题</h2>
+            <div class="post-date">2022-05-26</div>
+            
+            <div class="post-content">
+              <!-- more -->
+<h2 id="1expectpage只能在capybara相关代码块内使用不能在rspec中使用">1.expect(page)只能在Capybara相关代码块内使用，不能在Rspec中使用</h2>
+<h2 id="可能会有用的代码">可能会有用的代码</h2>
+<pre><code class="language-ruby">within 'title' do
+    expect(page).to have_content 'Home'
+end
+expect(response).to have_title('Home', exact:true)
+</code></pre>
+<pre><code class="language-ruby"># guardfile
+# Defines the matching rules for Guard.
+guard :minitest, spring: &quot;bin/rails test&quot;, all_on_start: false do 
+  watch(%r{^test/(.*)/?(.*)_test\.rb$})
+  watch('test/test_helper.rb') { 'test' } 
+  watch('config/routes.rb') { integration_tests }
+
+  watch(%r{^app/models/(.*?)\.rb$}) do |matches|
+   &quot;test/models/#{matches[1]}_test.rb&quot; 
+  end
+
+  watch(%r{^app/controllers/(.*?)_controller\.rb$}) do |matches|
+    resource_tests(matches[1])
+  end
+
+  watch(%r{^app/views/([^/]*?)/.*\.html\.erb$}) do |matches|
+    [&quot;test/controllers/#{matches[1]}_controller_test.rb&quot;] + integration_tests(matches[1]) 
+  end
+
+  watch(%r{^app/helpers/(.*?)_helper\.rb$}) do |matches| 
+    integration_tests(matches[1])
+  end 
+
+  watch('app/views/layouts/application.html.erb') do
+  'test/integration/site_layout_test.rb'
+  end
+
+  watch('app/helpers/sessions_helper.rb') do
+    integration_tests &lt;&lt; 'test/helpers/sessions_helper_test.rb' 
+  end
+
+  watch('app/controllers/sessions_controller.rb') do ['test/controllers/sessions_controller_test.rb',
+  'test/integration/users_login_test.rb'] 
+  end
+
+  watch('app/controllers/account_activations_controller.rb') do 'test/integration/users_signup_test.rb'
+  end
+
+  watch(%r{app/views/users/*}) do
+    resource_tests('users') +
+      ['test/integration/microposts_interface_test.rb'] 
+  end
+end
+# Returns the integration tests corresponding to the given resource.
+def integration_tests(resource = :all) 
+  if resource == :all
+    Dir[&quot;test/integration/*&quot;] 
+  else
+    Dir[&quot;test/integration/#{resource}_*.rb&quot;] 
+  end
+end
+
+# Returns the controller tests corresponding to the given resource.
+def controller_test(resource) 
+  &quot;test/controllers/#{resource}_controller_test.rb&quot;
+end
+
+# Returns all tests for the given resource.
+def resource_tests(resource)
+  integration_tests(resource) &lt;&lt; controller_test(resource)
+end
+
+
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://rubyyc.github.io/post/vim-chang-yong-de-an-jian/">
+                  <h3 class="post-title">
+                    Vim常用的按键
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '79f46a6a98e80c6e9d93',
+        clientSecret: 'bc842ca538aacbb4084e657b3b62ce81c33ae77f',
+        repo: 'rubyyc.github.io',
+        owner: 'rubyyc',
+        admin: ['rubyyc'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

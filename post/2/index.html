@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Rails开发过程中的问题汇总及相关解决方法(持续更新...) | Gridea</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://rubyyc.github.io/favicon.ico?v=1654829529051">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://rubyyc.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://rubyyc.github.io">
+        <img src="https://rubyyc.github.io/images/avatar.png?v=1654829529051" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://rubyyc.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Rails开发过程中的问题汇总及相关解决方法(持续更新...)</h2>
+            <div class="post-date">2022-05-23</div>
+            
+            <div class="post-content">
+              <!-- more -->
+<h2 id="1rails-test时不显示deprecation的warning">1.rails test时不显示deprecation的warning</h2>
+<pre><code class="language-ruby"># config/enviroments/test.rb
+$VERBOSE=nil
+</code></pre>
+<p><a href="https://fuzzyblog.io/blog/rails/2020/01/28/turning-off-ruby-deprecation-warnings-when-running-tests.html">相关解决办法的网站</a></p>
+<h2 id="2rspec测试教程以rails51为例">2.Rspec测试教程以Rails5.1为例</h2>
+<p><a href="https://issuu.com/micky40086/docs/rspeconrails-0.0.1">教程</a></p>
+<h2 id="3使用裸仓库来管理dotfile">3.使用裸仓库来管理dotfile</h2>
+<p><a href="https://chenhe.me/post/dotfiles%E7%AE%A1%E7%90%86-%E4%BD%BF%E7%94%A8git%E8%A3%B8%E4%BB%93%E5%BA%93/">链接</a></p>
+<h2 id="4时间机器恢复文件">4.时间机器恢复文件</h2>
+<ul>
+<li>先用Finder前往文件夹，找出你要恢复的文件或者目录</li>
+<li>再打开时间机器选择你要恢复的时间点，再点击恢复即可</li>
+</ul>
+<h2 id="5github设与取消代理">5.github设与取消代理</h2>
+<pre><code class="language-bash">git config --global https.proxy http://127.0.0.1:1080
+
+git config --global https.proxy https://127.0.0.1:1080
+
+git config --global --unset http.proxy
+
+git config --global --unset https.proxy
+
+#只对github.com
+git config --global http.https://github.com.proxy socks5://127.0.0.1:1080
+
+#取消代理
+git config --global --unset http.https://github.com.proxy)
+
+npm config delete proxy
+</code></pre>
+<p><a href="https://gist.github.com/laispace/666dd7b27e9116faece6">相关链接</a></p>
+<h2 id="6非主键形式的关联关系设置">6.非主键形式的关联关系设置</h2>
+<p><a href="https://stackoverflow.com/questions/22801213/belongs-to-association-with-primary-key-and-foreign-key">相关链接</a></p>
+<h2 id="7devise生成user与admin">7.devise生成user与admin</h2>
+<p><a href="https://www.driftingruby.com/episodes/multiple-resources-with-devise">相关链接</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://rubyyc.github.io/tag/AJ83Ysbrk/" class="tag">
+                    Rails
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://rubyyc.github.io/post/1/">
+                  <h3 class="post-title">
+                    Rails7部署到Ubuntu服务器上
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '79f46a6a98e80c6e9d93',
+        clientSecret: 'bc842ca538aacbb4084e657b3b62ce81c33ae77f',
+        repo: 'rubyyc.github.io',
+        owner: 'rubyyc',
+        admin: ['rubyyc'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

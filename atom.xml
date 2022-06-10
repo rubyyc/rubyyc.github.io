@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://rubyyc.github.io</id>
+    <title>Gridea</title>
+    <updated>2022-06-10T02:52:15.936Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://rubyyc.github.io"/>
+    <link rel="self" href="https://rubyyc.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://rubyyc.github.io/images/avatar.png</logo>
+    <icon>https://rubyyc.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[纪录片推荐]]></title>
+        <id>https://rubyyc.github.io/post/ji-lu-pian-tui-jian/</id>
+        <link href="https://rubyyc.github.io/post/ji-lu-pian-tui-jian/">
+        </link>
+        <updated>2022-06-07T03:16:08.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<h2 id="创新中国">《创新中国》</h2>
+<h2 id="互联网时代">《互联网时代》</h2>
+<h2 id="资本的故事">《资本的故事》</h2>
+<h2 id="超级工程">《超级工程》</h2>
+<h2 id="">《》</h2>
+<h2 id="-2">《》</h2>
+<h2 id="-3">《》</h2>
+<h2 id="-4">《》</h2>
+<h2 id="-5">《》</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Rails测试相关问题]]></title>
+        <id>https://rubyyc.github.io/post/rails-ce-shi-xiang-guan-wen-ti/</id>
+        <link href="https://rubyyc.github.io/post/rails-ce-shi-xiang-guan-wen-ti/">
+        </link>
+        <updated>2022-05-26T02:38:41.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<h2 id="1expectpage只能在capybara相关代码块内使用不能在rspec中使用">1.expect(page)只能在Capybara相关代码块内使用，不能在Rspec中使用</h2>
+<h2 id="可能会有用的代码">可能会有用的代码</h2>
+<pre><code class="language-ruby">within 'title' do
+    expect(page).to have_content 'Home'
+end
+expect(response).to have_title('Home', exact:true)
+</code></pre>
+<pre><code class="language-ruby"># guardfile
+# Defines the matching rules for Guard.
+guard :minitest, spring: &quot;bin/rails test&quot;, all_on_start: false do 
+  watch(%r{^test/(.*)/?(.*)_test\.rb$})
+  watch('test/test_helper.rb') { 'test' } 
+  watch('config/routes.rb') { integration_tests }
+
+  watch(%r{^app/models/(.*?)\.rb$}) do |matches|
+   &quot;test/models/#{matches[1]}_test.rb&quot; 
+  end
+
+  watch(%r{^app/controllers/(.*?)_controller\.rb$}) do |matches|
+    resource_tests(matches[1])
+  end
+
+  watch(%r{^app/views/([^/]*?)/.*\.html\.erb$}) do |matches|
+    [&quot;test/controllers/#{matches[1]}_controller_test.rb&quot;] + integration_tests(matches[1]) 
+  end
+
+  watch(%r{^app/helpers/(.*?)_helper\.rb$}) do |matches| 
+    integration_tests(matches[1])
+  end 
+
+  watch('app/views/layouts/application.html.erb') do
+  'test/integration/site_layout_test.rb'
+  end
+
+  watch('app/helpers/sessions_helper.rb') do
+    integration_tests &lt;&lt; 'test/helpers/sessions_helper_test.rb' 
+  end
+
+  watch('app/controllers/sessions_controller.rb') do ['test/controllers/sessions_controller_test.rb',
+  'test/integration/users_login_test.rb'] 
+  end
+
+  watch('app/controllers/account_activations_controller.rb') do 'test/integration/users_signup_test.rb'
+  end
+
+  watch(%r{app/views/users/*}) do
+    resource_tests('users') +
+      ['test/integration/microposts_interface_test.rb'] 
+  end
+end
+# Returns the integration tests corresponding to the given resource.
+def integration_tests(resource = :all) 
+  if resource == :all
+    Dir[&quot;test/integration/*&quot;] 
+  else
+    Dir[&quot;test/integration/#{resource}_*.rb&quot;] 
+  end
+end
+
+# Returns the controller tests corresponding to the given resource.
+def controller_test(resource) 
+  &quot;test/controllers/#{resource}_controller_test.rb&quot;
+end
+
+# Returns all tests for the given resource.
+def resource_tests(resource)
+  integration_tests(resource) &lt;&lt; controller_test(resource)
+end
+
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vim常用的按键]]></title>
+        <id>https://rubyyc.github.io/post/vim-chang-yong-de-an-jian/</id>
+        <link href="https://rubyyc.github.io/post/vim-chang-yong-de-an-jian/">
+        </link>
+        <updated>2022-05-26T02:19:21.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<h1 id="normal模式">normal模式</h1>
+<ul>
+<li><kdb>daw</kdb> 删除当前光标所在的单词</li>
+<li><kdb>yaw</kdb> 复制当前光标所在的单词</li>
+<li><kdb>daw</kdb> 删除当前光标所在的单词</li>
+<li><kdb>daw</kdb> 删除当前光标所在的单词</li>
+<li><kdb>daw</kdb> 删除当前光标所在的单词</li>
+<li><kdb>daw</kdb> 删除当前光标所在的单词</li>
+<li><kdb>daw</kdb> 删除当前光标所在的单词</li>
+</ul>
+<h1 id="insert模式">insert模式</h1>
+<h1 id="visual模式">visual模式</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一些非开发问题记录]]></title>
+        <id>https://rubyyc.github.io/post/yi-xie-fei-kai-fa-wen-ti-ji-lu/</id>
+        <link href="https://rubyyc.github.io/post/yi-xie-fei-kai-fa-wen-ti-ji-lu/">
+        </link>
+        <updated>2022-05-25T08:58:01.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<h2 id="1如何利用obs进行b站直播">1.如何利用OBS进行b站直播</h2>
+<h2 id="2obs的桌面音频是禁用状态如何修改">2.OBS的桌面音频是禁用状态如何修改</h2>
+<p><a href="https://blog.csdn.net/Deng_Xian_Sheng/article/details/117099173">相关链接</a></p>
+<h2 id="3obs直播弹幕设置">3.obs直播弹幕设置</h2>
+<p><a href="https://chat.bilisc.com/help">相关链接</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[收藏的网站]]></title>
+        <id>https://rubyyc.github.io/post/bBFLMl78B/</id>
+        <link href="https://rubyyc.github.io/post/bBFLMl78B/">
+        </link>
+        <updated>2022-05-24T11:39:00.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<ul>
+<li><a href="https://chenhe.me/">大佬博客 gitithub docker 机器学习</a></li>
+<li><a href="https://github.com/rubyyc">我的github</a></li>
+<li><a href="https://www.google.com.hk/">谷歌</a></li>
+<li><a href="https://rubyyc.github.io/">我的博客</a></li>
+<li><a href="https://stackoverflow.com/">stackoverflow</a></li>
+<li><a href="https://issuu.com/micky40086/docs/rspeconrails-0.0.1">Rspec测试教程</a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Rails常用的命令]]></title>
+        <id>https://rubyyc.github.io/post/8UKYTbaax/</id>
+        <link href="https://rubyyc.github.io/post/8UKYTbaax/">
+        </link>
+        <updated>2022-05-24T05:38:02.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<h1 id="开发">开发</h1>
+<pre><code class="language-bash"># 沙盒模式启动控制台
+rails console --sandbox
+</code></pre>
+<h1 id="测试">测试</h1>
+<h2 id="rspec常用的命令">Rspec常用的命令</h2>
+<pre><code class="language-bash"># 生成controller测试文件
+rails g rspec:controller controller_name
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[我所配置的Nvim常用的快捷键]]></title>
+        <id>https://rubyyc.github.io/post/z_YiLD9Tv/</id>
+        <link href="https://rubyyc.github.io/post/z_YiLD9Tv/">
+        </link>
+        <updated>2022-05-24T05:36:07.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<pre><code class="language-bash">-- Modes
+--   normal_mode = &quot;n&quot;,
+--   insert_mode = &quot;i&quot;,
+--   visual_mode = &quot;v&quot;,
+--   visual_block_mode = &quot;x&quot;,
+--   term_mode = &quot;t&quot;,
+--   command_mode = &quot;c&quot;,
+
+-- leader key 为空
+vim.g.mapleader = &quot;,&quot;
+vim.g.maplocalleader = &quot;,&quot;
+
+local opt = {
+	noremap = true,
+	silent = true,
+}
+
+-- 本地变量
+local map = vim.api.nvim_set_keymap
+
+map(&quot;i&quot;, &quot;jj&quot;, &quot;&lt;Esc&gt;&quot;, opt)
+
+-- $跳到行尾不带空格 (交换$ 和 g_)
+map(&quot;v&quot;, &quot;$&quot;, &quot;g_&quot;, opt)
+map(&quot;v&quot;, &quot;g_&quot;, &quot;$&quot;, opt)
+map(&quot;n&quot;, &quot;$&quot;, &quot;g_&quot;, opt)
+map(&quot;n&quot;, &quot;g_&quot;, &quot;$&quot;, opt)
+
+-- 命令行下 Ctrl+j/k  上一个下一个
+map(&quot;c&quot;, &quot;&lt;C-j&gt;&quot;, &quot;&lt;C-n&gt;&quot;, { noremap = false })
+map(&quot;c&quot;, &quot;&lt;C-k&gt;&quot;, &quot;&lt;C-p&gt;&quot;, { noremap = false })
+
+map(&quot;n&quot;, &quot;&lt;leader&gt;w&quot;, &quot;:w&lt;CR&gt;&quot;, opt)
+
+-- 上下滚动浏览
+map(&quot;n&quot;, &quot;&lt;C-j&gt;&quot;, &quot;5j&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-k&gt;&quot;, &quot;5k&quot;, opt)
+-- ctrl u / ctrl + d  只移动9行，默认移动半屏
+map(&quot;n&quot;, &quot;&lt;C-u&gt;&quot;, &quot;10k&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-d&gt;&quot;, &quot;10j&quot;, opt)
+-- 全选
+map(&quot;n&quot;, &quot;&lt;C-a&gt;&quot;, &quot;ggVG&quot;, opt)
+
+-- magic search
+map(&quot;n&quot;, &quot;/&quot;, &quot;/\\v&quot;, { noremap = true, silent = false })
+map(&quot;v&quot;, &quot;/&quot;, &quot;/\\v&quot;, { noremap = true, silent = false })
+
+-- visual模式下缩进代码
+map(&quot;v&quot;, &quot;&lt;&quot;, &quot;&lt;gv&quot;, opt)
+map(&quot;v&quot;, &quot;&gt;&quot;, &quot;&gt;gv&quot;, opt)
+-- 上下移动选中文本
+map(&quot;v&quot;, &quot;J&quot;, &quot;:move '&gt;+1&lt;CR&gt;gv-gv&quot;, opt)
+map(&quot;v&quot;, &quot;K&quot;, &quot;:move '&lt;-2&lt;CR&gt;gv-gv&quot;, opt)
+
+-- 在visual mode 里粘贴不要复制
+map(&quot;v&quot;, &quot;p&quot;, '&quot;_dP', opt)
+
+-- 退出
+map(&quot;n&quot;, &quot;q&quot;, &quot;:q&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;qq&quot;, &quot;:q!&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;q&quot;, &quot;:qa!&lt;CR&gt;&quot;, opt)
+
+-- insert 模式下，跳到行首行尾
+map(&quot;i&quot;, &quot;&lt;C-b&gt;&quot;, &quot;&lt;ESC&gt;I&quot;, opt)
+map(&quot;i&quot;, &quot;&lt;C-e&gt;&quot;, &quot;&lt;ESC&gt;A&quot;, opt)
+
+map(&quot;i&quot;, &quot;&lt;C-o&gt;&quot;, &quot;&lt;Esc&gt;o&quot;, opt)
+map(&quot;i&quot;, &quot;&lt;C-p&gt;&quot;, &quot;&lt;Esc&gt;:Telescope find_files&lt;CR&gt;&quot;, opt)
+------------------------------------------------------------------
+-- windows 分屏快捷键
+------------------------------------------------------------------
+-- 取消 s 默认功能
+map(&quot;n&quot;, &quot;s&quot;, &quot;&quot;, opt)
+map(&quot;n&quot;, &quot;sv&quot;, &quot;:vsp&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;sh&quot;, &quot;:sp&lt;CR&gt;&quot;, opt)
+-- 关闭当前
+map(&quot;n&quot;, &quot;sc&quot;, &quot;&lt;C-w&gt;c&quot;, opt)
+-- 关闭其他
+map(&quot;n&quot;, &quot;so&quot;, &quot;&lt;C-w&gt;o&quot;, opt) -- close others
+-- alt + hjkl  窗口之间跳转
+map(&quot;n&quot;, &quot;&lt;A-h&gt;&quot;, &quot;&lt;C-w&gt;h&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;A-j&gt;&quot;, &quot;&lt;C-w&gt;j&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;A-k&gt;&quot;, &quot;&lt;C-w&gt;k&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;A-l&gt;&quot;, &quot;&lt;C-w&gt;l&quot;, opt)
+-- &lt;leader&gt; + hjkl 窗口之间跳转
+map(&quot;n&quot;, &quot;&lt;leader&gt;h&quot;, &quot;&lt;C-w&gt;h&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;j&quot;, &quot;&lt;C-w&gt;j&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;k&quot;, &quot;&lt;C-w&gt;k&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;l&quot;, &quot;&lt;C-w&gt;l&quot;, opt)
+-- 左右比例控制
+map(&quot;n&quot;, &quot;&lt;C-Left&gt;&quot;, &quot;:vertical resize -2&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-Right&gt;&quot;, &quot;:vertical resize +2&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;s,&quot;, &quot;:vertical resize -10&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;s.&quot;, &quot;:vertical resize +10&lt;CR&gt;&quot;, opt)
+-- 上下比例
+map(&quot;n&quot;, &quot;sj&quot;, &quot;:resize +10&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;sk&quot;, &quot;:resize -10&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-Down&gt;&quot;, &quot;:resize +2&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-Up&gt;&quot;, &quot;:resize -2&lt;CR&gt;&quot;, opt)
+-- 相等比例
+map(&quot;n&quot;, &quot;s=&quot;, &quot;&lt;C-w&gt;=&quot;, opt)
+
+-- Terminal相关
+map(&quot;n&quot;, &quot;st&quot;, &quot;:sp | terminal&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;stv&quot;, &quot;:vsp | terminal&lt;CR&gt;&quot;, opt)
+-- Esc 回 Normal 模式
+map(&quot;t&quot;, &quot;&lt;Esc&gt;&quot;, &quot;&lt;C-\\&gt;&lt;C-n&gt;&quot;, opt)
+map(&quot;t&quot;, &quot;&lt;A-h&gt;&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;h ]], opt)
+map(&quot;t&quot;, &quot;&lt;A-j&gt;&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;j ]], opt)
+map(&quot;t&quot;, &quot;&lt;A-k&gt;&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;k ]], opt)
+map(&quot;t&quot;, &quot;&lt;A-l&gt;&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;l ]], opt)
+map(&quot;t&quot;, &quot;&lt;leader&gt;h&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;h ]], opt)
+map(&quot;t&quot;, &quot;&lt;leader&gt;j&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;j ]], opt)
+map(&quot;t&quot;, &quot;&lt;leader&gt;k&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;k ]], opt)
+map(&quot;t&quot;, &quot;&lt;leader&gt;l&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;l ]], opt)
+--------------------------------------------------------------------
+-- 插件快捷键
+local pluginKeys = {}
+
+-- treesitter 折叠
+map(&quot;n&quot;, &quot;zz&quot;, &quot;:foldclose&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;Z&quot;, &quot;:foldopen&lt;CR&gt;&quot;, opt)
+
+-- nvim-tree
+map(&quot;n&quot;, &quot;&lt;C-m&gt;&quot;, &quot;:NvimTreeToggle&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;m&quot;, &quot;:NvimTreeToggle&lt;CR&gt;&quot;, opt)
+--map(&quot;i&quot;, &quot;&lt;C-n&gt;&quot;, &quot;copilot#Accept&lt;CR&gt;&quot;, opt)
+--
+--rspec
+map(&quot;n&quot;, &quot;&lt;Leader&gt;t&quot;, &quot;:call RunCurrentSpecFile()&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;Leader&gt;s&quot;, &quot;:cal RunNearestSpec()&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;Leader&gt;l&quot;, &quot;:call RunLastSpec()&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;Leader&gt;a&quot;, &quot;:call RunAllSpecs()&lt;CR&gt;&quot;, opt)
+
+-- 列表快捷键
+pluginKeys.nvimTreeList = { -- 打开文件或文件夹
+	{ key = { &quot;&lt;CR&gt;&quot;, &quot;o&quot;, &quot;&lt;2-LeftMouse&gt;&quot; }, action = &quot;edit&quot; },
+	-- 分屏打开文件
+	{ key = &quot;v&quot;, action = &quot;vsplit&quot; },
+	-- 显示隐藏文件
+	{ key = &quot;h&quot;, action = &quot;split&quot; },
+	-- Ignore (node_modules)
+	{ key = &quot;i&quot;, action = &quot;toggle_ignored&quot; },
+	-- Hide (dotfiles)
+	{ key = &quot;.&quot;, action = &quot;toggle_dotfiles&quot; },
+	-- 文件操作
+	{ key = &quot;&lt;F5&gt;&quot;, action = &quot;refresh&quot; },
+	{ key = &quot;a&quot;, action = &quot;create&quot; },
+	{ key = &quot;d&quot;, action = &quot;remove&quot; },
+	{ key = &quot;r&quot;, action = &quot;rename&quot; },
+	{ key = &quot;x&quot;, action = &quot;cut&quot; },
+	{ key = &quot;c&quot;, action = &quot;copy&quot; },
+	{ key = &quot;p&quot;, action = &quot;paste&quot; },
+	-- 进入下一级
+	{ key = { &quot;]&quot; }, action = &quot;cd&quot; },
+	-- 进入上一级
+	{ key = { &quot;[&quot; }, action = &quot;dir_up&quot; },
+	-- mac
+	{ key = &quot;s&quot;, action = &quot;open&quot; },
+	-- windows
+	-- { key = 's', action = 'system_open' },
+}
+-- bufferline
+-- 左右Tab切换
+map(&quot;n&quot;, &quot;&lt;C-h&gt;&quot;, &quot;:BufferLineCyclePrev&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-l&gt;&quot;, &quot;:BufferLineCycleNext&lt;CR&gt;&quot;, opt)
+-- &quot;moll/vim-bbye&quot; 关闭当前 buffer
+map(&quot;n&quot;, &quot;&lt;leader&gt;bc&quot;, &quot;:Bdelete!&lt;CR&gt;&quot;, opt)
+-- 关闭左/右侧标签页
+map(&quot;n&quot;, &quot;&lt;leader&gt;bh&quot;, &quot;:BufferLineCloseLeft&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;bl&quot;, &quot;:BufferLineCloseRight&lt;CR&gt;&quot;, opt)
+-- 关闭其他标签页
+map(&quot;n&quot;, &quot;&lt;leader&gt;bo&quot;, &quot;:BufferLineCloseRight&lt;CR&gt;:BufferLineCloseLeft&lt;CR&gt;&quot;, opt)
+-- 关闭选中标签页
+map(&quot;n&quot;, &quot;&lt;leader&gt;bp&quot;, &quot;:BufferLinePickClose&lt;CR&gt;&quot;, opt)
+
+-- Telescope
+map(&quot;n&quot;, &quot;&lt;C-p&gt;&quot;, &quot;:Telescope find_files&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-f&gt;&quot;, &quot;:Telescope live_grep&lt;CR&gt;&quot;, opt)
+-- Telescope 列表中 插入模式快捷键
+pluginKeys.telescopeList = {
+	i = {
+		-- 上下移动
+		[&quot;&lt;C-j&gt;&quot;] = &quot;move_selection_next&quot;,
+		[&quot;&lt;C-k&gt;&quot;] = &quot;move_selection_previous&quot;,
+		-- [&quot;&lt;C-n&gt;&quot;] = &quot;move_selection_next&quot;,
+		-- [&quot;&lt;C-p&gt;&quot;] = &quot;move_selection_previous&quot;,
+		-- 历史记录
+		[&quot;&lt;C-n&gt;&quot;] = &quot;cycle_history_next&quot;,
+		[&quot;&lt;C-p&gt;&quot;] = &quot;cycle_history_prev&quot;,
+		-- 关闭窗口
+		-- [&quot;&lt;esc&gt;&quot;] = actions.close,
+		[&quot;&lt;C-c&gt;&quot;] = &quot;close&quot;,
+		-- 预览窗口上下滚动
+		[&quot;&lt;C-u&gt;&quot;] = &quot;preview_scrolling_up&quot;,
+		[&quot;&lt;C-d&gt;&quot;] = &quot;preview_scrolling_down&quot;,
+	},
+}
+
+-- 代码注释插件
+-- see ./lua/plugin-config/comment.lua
+pluginKeys.comment = {
+	toggler = {
+		line = &quot;gcc&quot;,
+		block = &quot;gbc&quot;,
+	},
+	opleader = {
+		line = &quot;gc&quot;,
+		bock = &quot;gb&quot;,
+	},
+}
+-- ctrl + /
+map(&quot;n&quot;, &quot;&lt;c-_&gt;&quot;, &quot;gcc&quot;, { noremap = false })
+map(&quot;i&quot;, &quot;&lt;c-_&gt;&quot;, &quot;gcc&quot;, { noremap = false })
+map(&quot;v&quot;, &quot;&lt;c-_&gt;&quot;, &quot;gcc&quot;, { noremap = false })
+
+-- lsp 回调函数快捷键设置
+pluginKeys.mapLSP = function(mapbuf)
+	-- rename
+	--[[
+  Lspsaga 替换 rn
+  mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;rn&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.rename()&lt;CR&gt;&quot;, opt)
+  --]]
+	mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;rn&quot;, &quot;&lt;cmd&gt;Lspsaga rename&lt;CR&gt;&quot;, opt)
+	-- code action
+	--[[
+  Lspsaga 替换 ca
+  mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;ca&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.code_action()&lt;CR&gt;&quot;, opt)
+  --]]
+	mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;ca&quot;, &quot;&lt;cmd&gt;Lspsaga code_action&lt;CR&gt;&quot;, opt)
+	-- go xx
+	--[[
+    mapbuf('n', 'gd', '&lt;cmd&gt;Lspsaga preview_definition&lt;CR&gt;', opt)
+  --]]
+	mapbuf(&quot;n&quot;, &quot;gd&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.definition()&lt;CR&gt;&quot;, opt)
+	--[[
+  Lspsaga 替换 gh
+  mapbuf(&quot;n&quot;, &quot;gh&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.hover()&lt;CR&gt;&quot;, opt)
+  --]]
+	mapbuf(&quot;n&quot;, &quot;gh&quot;, &quot;&lt;cmd&gt;Lspsaga hover_doc&lt;cr&gt;&quot;, opt)
+	--[[
+  Lspsaga 替换 gr
+  mapbuf(&quot;n&quot;, &quot;gr&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.references()&lt;CR&gt;&quot;, opt)
+  --]]
+	mapbuf(&quot;n&quot;, &quot;gr&quot;, &quot;&lt;cmd&gt;Lspsaga lsp_finder&lt;CR&gt;&quot;, opt)
+	--[[
+  Lspsaga 替换 gp, gj, gk
+  mapbuf(&quot;n&quot;, &quot;gp&quot;, &quot;&lt;cmd&gt;lua vim.diagnostic.open_float()&lt;CR&gt;&quot;, opt)
+  mapbuf(&quot;n&quot;, &quot;gj&quot;, &quot;&lt;cmd&gt;lua vim.diagnostic.goto_next()&lt;CR&gt;&quot;, opt)
+  mapbuf(&quot;n&quot;, &quot;gk&quot;, &quot;&lt;cmd&gt;lua vim.diagnostic.goto_prev()&lt;CR&gt;&quot;, opt)
+  --]]
+	-- diagnostic
+	mapbuf(&quot;n&quot;, &quot;gp&quot;, &quot;&lt;cmd&gt;Lspsaga show_line_diagnostics&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;gj&quot;, &quot;&lt;cmd&gt;Lspsaga diagnostic_jump_next&lt;cr&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;gk&quot;, &quot;&lt;cmd&gt;Lspsaga diagnostic_jump_prev&lt;cr&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;f&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.formatting()&lt;CR&gt;&quot;, opt)
+	-- 未用
+	mapbuf(&quot;n&quot;, &quot;gD&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.declaration()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;gi&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.implementation()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;q&quot;, &quot;&lt;cmd&gt;lua vim.diagnostic.setloclist()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;C-k&gt;&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.signature_help()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;space&gt;wa&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.add_workspace_folder()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;space&gt;wr&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.remove_workspace_folder()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;space&gt;wl&quot;, &quot;&lt;cmd&gt;lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;space&gt;D&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.type_definition()&lt;CR&gt;&quot;, opt)
+end
+
+-- typescript 快捷键
+pluginKeys.mapTsLSP = function(mapbuf)
+	mapbuf(&quot;n&quot;, &quot;gs&quot;, &quot;:TSLspOrganize&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;gr&quot;, &quot;:TSLspRenameFile&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;gi&quot;, &quot;:TSLspImportAll&lt;CR&gt;&quot;, opt)
+end
+
+-- nvim-cmp 自动补全
+pluginKeys.cmp = function(cmp)
+	local feedkey = function(key, mode)
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+	end
+	local has_words_before = function()
+		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match(&quot;%s&quot;) == nil
+	end
+
+	return {
+		-- 上一个
+		[&quot;&lt;C-k&gt;&quot;] = cmp.mapping.select_prev_item(),
+		-- 下一个
+		[&quot;&lt;C-j&gt;&quot;] = cmp.mapping.select_next_item(),
+		-- 出现补全
+		[&quot;&lt;A-.&gt;&quot;] = cmp.mapping(cmp.mapping.complete(), { &quot;i&quot;, &quot;c&quot; }),
+		-- 取消
+		[&quot;&lt;A-,&gt;&quot;] = cmp.mapping({
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
+		}),
+		-- 确认
+		-- Accept currently selected item. If none selected, `select` first item.
+		-- Set `select` to `false` to only confirm explicitly selected items.
+		[&quot;&lt;CR&gt;&quot;] = cmp.mapping.confirm({
+			select = true,
+			behavior = cmp.ConfirmBehavior.Replace,
+		}),
+		-- ['&lt;C-y&gt;'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `&lt;C-y&gt;` mapping.
+		-- 如果窗口内容太多，可以滚动
+		[&quot;&lt;C-u&gt;&quot;] = cmp.mapping(cmp.mapping.scroll_docs(-4), { &quot;i&quot;, &quot;c&quot; }),
+		[&quot;&lt;C-d&gt;&quot;] = cmp.mapping(cmp.mapping.scroll_docs(4), { &quot;i&quot;, &quot;c&quot; }),
+		-- snippets 跳转
+		[&quot;&lt;C-l&gt;&quot;] = cmp.mapping(function(_)
+			if vim.fn[&quot;vsnip#available&quot;](1) == 1 then
+				feedkey(&quot;&lt;Plug&gt;(vsnip-expand-or-jump)&quot;, &quot;&quot;)
+			end
+		end, { &quot;i&quot;, &quot;s&quot; }),
+		[&quot;&lt;C-h&gt;&quot;] = cmp.mapping(function()
+			if vim.fn[&quot;vsnip#jumpable&quot;](-1) == 1 then
+				feedkey(&quot;&lt;Plug&gt;(vsnip-jump-prev)&quot;, &quot;&quot;)
+			end
+		end, { &quot;i&quot;, &quot;s&quot; }),
+
+		-- super Tab
+		[&quot;&lt;Tab&gt;&quot;] = cmp.mapping(function(fallback)
+			local copilot_keys = vim.fn[&quot;copilot#Accept&quot;]()
+
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif copilot_keys ~= &quot;&quot; then
+				-- prioritise copilot over snippets
+				-- Copilot keys do not need to be wrapped in termcodes
+				vim.api.nvim_feedkeys(copilot_keys, &quot;i&quot;, true)
+			elseif vim.fn[&quot;vsnip#available&quot;](1) == 1 then
+				feedkey(&quot;&lt;Plug&gt;(vsnip-expand-or-jump)&quot;, &quot;&quot;)
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback() -- The fallback function sends a already mapped key. In this case, it's probably `&lt;Tab&gt;`.
+			end
+		end, { &quot;i&quot;, &quot;s&quot; }),
+
+		[&quot;&lt;S-Tab&gt;&quot;] = cmp.mapping(function()
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif vim.fn[&quot;vsnip#jumpable&quot;](-1) == 1 then
+				feedkey(&quot;&lt;Plug&gt;(vsnip-jump-prev)&quot;, &quot;&quot;)
+			end
+		end, { &quot;i&quot;, &quot;s&quot; }),
+		-- end of super Tab
+	}
+end
+
+-- gitsigns
+pluginKeys.gitsigns_on_attach = function(bufnr)
+	local gs = package.loaded.gitsigns
+
+	local function map(mode, l, r, opts)
+		opts = opts or {}
+		opts.buffer = bufnr
+		vim.keymap.set(mode, l, r, opts)
+	end
+
+	-- Navigation
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gj&quot;, function()
+		if vim.wo.diff then
+			return &quot;]c&quot;
+		end
+		vim.schedule(function()
+			gs.next_hunk()
+		end)
+		return &quot;&lt;Ignore&gt;&quot;
+	end, { expr = true })
+
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gk&quot;, function()
+		if vim.wo.diff then
+			return &quot;[c&quot;
+		end
+		vim.schedule(function()
+			gs.prev_hunk()
+		end)
+		return &quot;&lt;Ignore&gt;&quot;
+	end, { expr = true })
+
+	map({ &quot;n&quot;, &quot;v&quot; }, &quot;&lt;leader&gt;gs&quot;, &quot;:Gitsigns stage_hunk&lt;CR&gt;&quot;)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gS&quot;, gs.stage_buffer)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gu&quot;, gs.undo_stage_hunk)
+	map({ &quot;n&quot;, &quot;v&quot; }, &quot;&lt;leader&gt;gr&quot;, &quot;:Gitsigns reset_hunk&lt;CR&gt;&quot;)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gR&quot;, gs.reset_buffer)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gp&quot;, gs.preview_hunk)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gb&quot;, function()
+		gs.blame_line({ full = true })
+	end)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gd&quot;, gs.diffthis)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gD&quot;, function()
+		gs.diffthis(&quot;~&quot;)
+	end)
+	-- toggle
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gtd&quot;, gs.toggle_deleted)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gtb&quot;, gs.toggle_current_line_blame)
+	-- Text object
+	map({ &quot;o&quot;, &quot;x&quot; }, &quot;ig&quot;, &quot;:&lt;C-U&gt;Gitsigns select_hunk&lt;CR&gt;&quot;)
+end
+
+return pluginKeys
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[我经常使用的命令缩写]]></title>
+        <id>https://rubyyc.github.io/post/yYNeTYCKE/</id>
+        <link href="https://rubyyc.github.io/post/yYNeTYCKE/">
+        </link>
+        <updated>2022-05-24T05:35:09.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<pre><code class="language-bash"># Example aliases
+alias rs=&quot;rails s&quot;
+alias rdb=&quot;rails db:console&quot;
+alias rdm=&quot;rails db:migrate&quot;
+alias rds=&quot;rails db:seed&quot;
+alias r=&quot;rails&quot;
+alias b=&quot;bundle&quot;
+alias rdr=&quot;rails db:rollback&quot;
+
+# rspec
+alias rrm=&quot;rails g rspec:model&quot;
+alias rrv=&quot;rails g rspec:view&quot;
+alias rrc=&quot;rails g rspec:controller&quot;
+alias rspec=&quot;bundle exec rspec&quot;
+
+# rspec factory_girl_rails
+alias rgfm=&quot;rails g factory_girl:model&quot;
+
+alias gts=&quot;git status&quot;
+alias gtl=&quot;git log&quot;
+alias gta=&quot;git add .&quot;
+</code></pre>
+<pre><code class="language-bash"># If you come from bash you might have to change your $PATH.
+#
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+ZSH_DISABLE_COMPFIX=true
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+
+# Set name of the theme to load --- if set to &quot;random&quot;, it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ZSH_THEME=&quot;agnoster&quot;
+ ZSH_THEME=&quot;excid3&quot;
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( &quot;robbyrussell&quot; &quot;agnoster&quot; )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE=&quot;true&quot;
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE=&quot;true&quot;
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE=&quot;true&quot;
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS=&quot;true&quot;
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE=&quot;true&quot;
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION=&quot;true&quot;
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS=&quot;true&quot;
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY=&quot;true&quot;
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# &quot;mm/dd/yyyy&quot;|&quot;dd.mm.yyyy&quot;|&quot;yyyy-mm-dd&quot;
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS=&quot;mm/dd/yyyy&quot;
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git zsh-autosuggestions)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH=&quot;/usr/local/man:$MANPATH&quot;
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# ZSH iterm word jump
+bindkey &quot;[D&quot; backward-word
+bindkey &quot;[C&quot; forward-word
+bindkey &quot;^[a&quot; beginning-of-line
+bindkey &quot;^[e&quot; end-of-line
+
+# Compilation flags
+# export ARCHFLAGS=&quot;-arch x86_64&quot;
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+alias rs=&quot;rails s&quot;
+alias rdb=&quot;rails db:console&quot;
+alias rdm=&quot;rails db:migrate&quot;
+alias rds=&quot;rails db:seed&quot;
+alias r=&quot;rails&quot;
+alias b=&quot;bundle&quot;
+alias rdr=&quot;rails db:rollback&quot;
+alias rt=&quot;rails test&quot;
+
+# rspec
+alias rrm=&quot;rails g rspec:model&quot;
+alias rrv=&quot;rails g rspec:view&quot;
+alias rrc=&quot;rails g rspec:controller&quot;
+alias rspec=&quot;bundle exec rspec&quot;
+
+# rspec factory_girl_rails
+alias rgfm=&quot;rails g factory_girl:model&quot;
+
+alias gts=&quot;git status&quot;
+alias gtl=&quot;git log&quot;
+alias gta=&quot;git add .&quot;
+alias gtp=&quot;git push&quot;
+alias cl=&quot;clear&quot;
+alias gtcm=&quot;git commit -m&quot;
+alias gcd=&quot;git checkout dev&quot;
+alias gcm=&quot;git checkout main&quot;
+alias gcb=&quot;git checkout -b&quot;
+# alias ------------------------------------------------------
+alias nvim=&quot;sudo nvim&quot;
+# alias zshconfig=&quot;mate ~/.zshrc&quot;
+# alias ohmyzsh=&quot;mate ~/.oh-my-zsh&quot;
+export PATH=&quot;/usr/local/opt/gettext/bin:$PATH&quot;
+source ~/.bash_profile
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH=&quot;$PATH:$HOME/.rvm/bin&quot;
+export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;
+export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export PASSWORD=password
+# . /usr/local/opt/asdf/libexec/asdf.sh
+export NVM_DIR=&quot;$HOME/.nvm&quot;
+[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm
+[ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion
+</code></pre>
+<pre><code class="language-lua">	-- super Tab
+		[&quot;&lt;Tab&gt;&quot;] = cmp.mapping(function(fallback)
+			local copilot_keys = vim.fn[&quot;copilot#Accept&quot;]()
+
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif copilot_keys ~= &quot;&quot; then
+				-- prioritise copilot over snippets
+				-- Copilot keys do not need to be wrapped in termcodes
+				vim.api.nvim_feedkeys(copilot_keys, &quot;i&quot;, true)
+			elseif vim.fn[&quot;vsnip#available&quot;](1) == 1 then
+				feedkey(&quot;&lt;Plug&gt;(vsnip-expand-or-jump)&quot;, &quot;&quot;)
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback() -- The fallback function sends a already mapped key. In this case, it's probably `&lt;Tab&gt;`.
+			end
+		end, { &quot;i&quot;, &quot;s&quot; }),
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Rails开发过程中的问题汇总及相关解决方法(持续更新...)]]></title>
+        <id>https://rubyyc.github.io/post/2/</id>
+        <link href="https://rubyyc.github.io/post/2/">
+        </link>
+        <updated>2022-05-23T13:10:48.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<h2 id="1rails-test时不显示deprecation的warning">1.rails test时不显示deprecation的warning</h2>
+<pre><code class="language-ruby"># config/enviroments/test.rb
+$VERBOSE=nil
+</code></pre>
+<p><a href="https://fuzzyblog.io/blog/rails/2020/01/28/turning-off-ruby-deprecation-warnings-when-running-tests.html">相关解决办法的网站</a></p>
+<h2 id="2rspec测试教程以rails51为例">2.Rspec测试教程以Rails5.1为例</h2>
+<p><a href="https://issuu.com/micky40086/docs/rspeconrails-0.0.1">教程</a></p>
+<h2 id="3使用裸仓库来管理dotfile">3.使用裸仓库来管理dotfile</h2>
+<p><a href="https://chenhe.me/post/dotfiles%E7%AE%A1%E7%90%86-%E4%BD%BF%E7%94%A8git%E8%A3%B8%E4%BB%93%E5%BA%93/">链接</a></p>
+<h2 id="4时间机器恢复文件">4.时间机器恢复文件</h2>
+<ul>
+<li>先用Finder前往文件夹，找出你要恢复的文件或者目录</li>
+<li>再打开时间机器选择你要恢复的时间点，再点击恢复即可</li>
+</ul>
+<h2 id="5github设与取消代理">5.github设与取消代理</h2>
+<pre><code class="language-bash">git config --global https.proxy http://127.0.0.1:1080
+
+git config --global https.proxy https://127.0.0.1:1080
+
+git config --global --unset http.proxy
+
+git config --global --unset https.proxy
+
+#只对github.com
+git config --global http.https://github.com.proxy socks5://127.0.0.1:1080
+
+#取消代理
+git config --global --unset http.https://github.com.proxy)
+
+npm config delete proxy
+</code></pre>
+<p><a href="https://gist.github.com/laispace/666dd7b27e9116faece6">相关链接</a></p>
+<h2 id="6非主键形式的关联关系设置">6.非主键形式的关联关系设置</h2>
+<p><a href="https://stackoverflow.com/questions/22801213/belongs-to-association-with-primary-key-and-foreign-key">相关链接</a></p>
+<h2 id="7devise生成user与admin">7.devise生成user与admin</h2>
+<p><a href="https://www.driftingruby.com/episodes/multiple-resources-with-devise">相关链接</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Rails7部署到Ubuntu服务器上]]></title>
+        <id>https://rubyyc.github.io/post/1/</id>
+        <link href="https://rubyyc.github.io/post/1/">
+        </link>
+        <updated>2022-05-07T02:49:23.000Z</updated>
+        <content type="html"><![CDATA[<p>Rails7部署到Ubuntu服务器上1</p>
+]]></content>
+    </entry>
+</feed>

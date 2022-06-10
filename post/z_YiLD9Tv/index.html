@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>我所配置的Nvim常用的快捷键 | Gridea</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://rubyyc.github.io/favicon.ico?v=1654829529051">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://rubyyc.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://rubyyc.github.io">
+        <img src="https://rubyyc.github.io/images/avatar.png?v=1654829529051" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://rubyyc.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">我所配置的Nvim常用的快捷键</h2>
+            <div class="post-date">2022-05-24</div>
+            
+            <div class="post-content">
+              <!-- more -->
+<pre><code class="language-bash">-- Modes
+--   normal_mode = &quot;n&quot;,
+--   insert_mode = &quot;i&quot;,
+--   visual_mode = &quot;v&quot;,
+--   visual_block_mode = &quot;x&quot;,
+--   term_mode = &quot;t&quot;,
+--   command_mode = &quot;c&quot;,
+
+-- leader key 为空
+vim.g.mapleader = &quot;,&quot;
+vim.g.maplocalleader = &quot;,&quot;
+
+local opt = {
+	noremap = true,
+	silent = true,
+}
+
+-- 本地变量
+local map = vim.api.nvim_set_keymap
+
+map(&quot;i&quot;, &quot;jj&quot;, &quot;&lt;Esc&gt;&quot;, opt)
+
+-- $跳到行尾不带空格 (交换$ 和 g_)
+map(&quot;v&quot;, &quot;$&quot;, &quot;g_&quot;, opt)
+map(&quot;v&quot;, &quot;g_&quot;, &quot;$&quot;, opt)
+map(&quot;n&quot;, &quot;$&quot;, &quot;g_&quot;, opt)
+map(&quot;n&quot;, &quot;g_&quot;, &quot;$&quot;, opt)
+
+-- 命令行下 Ctrl+j/k  上一个下一个
+map(&quot;c&quot;, &quot;&lt;C-j&gt;&quot;, &quot;&lt;C-n&gt;&quot;, { noremap = false })
+map(&quot;c&quot;, &quot;&lt;C-k&gt;&quot;, &quot;&lt;C-p&gt;&quot;, { noremap = false })
+
+map(&quot;n&quot;, &quot;&lt;leader&gt;w&quot;, &quot;:w&lt;CR&gt;&quot;, opt)
+
+-- 上下滚动浏览
+map(&quot;n&quot;, &quot;&lt;C-j&gt;&quot;, &quot;5j&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-k&gt;&quot;, &quot;5k&quot;, opt)
+-- ctrl u / ctrl + d  只移动9行，默认移动半屏
+map(&quot;n&quot;, &quot;&lt;C-u&gt;&quot;, &quot;10k&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-d&gt;&quot;, &quot;10j&quot;, opt)
+-- 全选
+map(&quot;n&quot;, &quot;&lt;C-a&gt;&quot;, &quot;ggVG&quot;, opt)
+
+-- magic search
+map(&quot;n&quot;, &quot;/&quot;, &quot;/\\v&quot;, { noremap = true, silent = false })
+map(&quot;v&quot;, &quot;/&quot;, &quot;/\\v&quot;, { noremap = true, silent = false })
+
+-- visual模式下缩进代码
+map(&quot;v&quot;, &quot;&lt;&quot;, &quot;&lt;gv&quot;, opt)
+map(&quot;v&quot;, &quot;&gt;&quot;, &quot;&gt;gv&quot;, opt)
+-- 上下移动选中文本
+map(&quot;v&quot;, &quot;J&quot;, &quot;:move '&gt;+1&lt;CR&gt;gv-gv&quot;, opt)
+map(&quot;v&quot;, &quot;K&quot;, &quot;:move '&lt;-2&lt;CR&gt;gv-gv&quot;, opt)
+
+-- 在visual mode 里粘贴不要复制
+map(&quot;v&quot;, &quot;p&quot;, '&quot;_dP', opt)
+
+-- 退出
+map(&quot;n&quot;, &quot;q&quot;, &quot;:q&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;qq&quot;, &quot;:q!&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;q&quot;, &quot;:qa!&lt;CR&gt;&quot;, opt)
+
+-- insert 模式下，跳到行首行尾
+map(&quot;i&quot;, &quot;&lt;C-b&gt;&quot;, &quot;&lt;ESC&gt;I&quot;, opt)
+map(&quot;i&quot;, &quot;&lt;C-e&gt;&quot;, &quot;&lt;ESC&gt;A&quot;, opt)
+
+map(&quot;i&quot;, &quot;&lt;C-o&gt;&quot;, &quot;&lt;Esc&gt;o&quot;, opt)
+map(&quot;i&quot;, &quot;&lt;C-p&gt;&quot;, &quot;&lt;Esc&gt;:Telescope find_files&lt;CR&gt;&quot;, opt)
+------------------------------------------------------------------
+-- windows 分屏快捷键
+------------------------------------------------------------------
+-- 取消 s 默认功能
+map(&quot;n&quot;, &quot;s&quot;, &quot;&quot;, opt)
+map(&quot;n&quot;, &quot;sv&quot;, &quot;:vsp&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;sh&quot;, &quot;:sp&lt;CR&gt;&quot;, opt)
+-- 关闭当前
+map(&quot;n&quot;, &quot;sc&quot;, &quot;&lt;C-w&gt;c&quot;, opt)
+-- 关闭其他
+map(&quot;n&quot;, &quot;so&quot;, &quot;&lt;C-w&gt;o&quot;, opt) -- close others
+-- alt + hjkl  窗口之间跳转
+map(&quot;n&quot;, &quot;&lt;A-h&gt;&quot;, &quot;&lt;C-w&gt;h&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;A-j&gt;&quot;, &quot;&lt;C-w&gt;j&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;A-k&gt;&quot;, &quot;&lt;C-w&gt;k&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;A-l&gt;&quot;, &quot;&lt;C-w&gt;l&quot;, opt)
+-- &lt;leader&gt; + hjkl 窗口之间跳转
+map(&quot;n&quot;, &quot;&lt;leader&gt;h&quot;, &quot;&lt;C-w&gt;h&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;j&quot;, &quot;&lt;C-w&gt;j&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;k&quot;, &quot;&lt;C-w&gt;k&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;l&quot;, &quot;&lt;C-w&gt;l&quot;, opt)
+-- 左右比例控制
+map(&quot;n&quot;, &quot;&lt;C-Left&gt;&quot;, &quot;:vertical resize -2&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-Right&gt;&quot;, &quot;:vertical resize +2&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;s,&quot;, &quot;:vertical resize -10&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;s.&quot;, &quot;:vertical resize +10&lt;CR&gt;&quot;, opt)
+-- 上下比例
+map(&quot;n&quot;, &quot;sj&quot;, &quot;:resize +10&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;sk&quot;, &quot;:resize -10&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-Down&gt;&quot;, &quot;:resize +2&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-Up&gt;&quot;, &quot;:resize -2&lt;CR&gt;&quot;, opt)
+-- 相等比例
+map(&quot;n&quot;, &quot;s=&quot;, &quot;&lt;C-w&gt;=&quot;, opt)
+
+-- Terminal相关
+map(&quot;n&quot;, &quot;st&quot;, &quot;:sp | terminal&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;stv&quot;, &quot;:vsp | terminal&lt;CR&gt;&quot;, opt)
+-- Esc 回 Normal 模式
+map(&quot;t&quot;, &quot;&lt;Esc&gt;&quot;, &quot;&lt;C-\\&gt;&lt;C-n&gt;&quot;, opt)
+map(&quot;t&quot;, &quot;&lt;A-h&gt;&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;h ]], opt)
+map(&quot;t&quot;, &quot;&lt;A-j&gt;&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;j ]], opt)
+map(&quot;t&quot;, &quot;&lt;A-k&gt;&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;k ]], opt)
+map(&quot;t&quot;, &quot;&lt;A-l&gt;&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;l ]], opt)
+map(&quot;t&quot;, &quot;&lt;leader&gt;h&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;h ]], opt)
+map(&quot;t&quot;, &quot;&lt;leader&gt;j&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;j ]], opt)
+map(&quot;t&quot;, &quot;&lt;leader&gt;k&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;k ]], opt)
+map(&quot;t&quot;, &quot;&lt;leader&gt;l&quot;, [[ &lt;C-\&gt;&lt;C-N&gt;&lt;C-w&gt;l ]], opt)
+--------------------------------------------------------------------
+-- 插件快捷键
+local pluginKeys = {}
+
+-- treesitter 折叠
+map(&quot;n&quot;, &quot;zz&quot;, &quot;:foldclose&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;Z&quot;, &quot;:foldopen&lt;CR&gt;&quot;, opt)
+
+-- nvim-tree
+map(&quot;n&quot;, &quot;&lt;C-m&gt;&quot;, &quot;:NvimTreeToggle&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;m&quot;, &quot;:NvimTreeToggle&lt;CR&gt;&quot;, opt)
+--map(&quot;i&quot;, &quot;&lt;C-n&gt;&quot;, &quot;copilot#Accept&lt;CR&gt;&quot;, opt)
+--
+--rspec
+map(&quot;n&quot;, &quot;&lt;Leader&gt;t&quot;, &quot;:call RunCurrentSpecFile()&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;Leader&gt;s&quot;, &quot;:cal RunNearestSpec()&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;Leader&gt;l&quot;, &quot;:call RunLastSpec()&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;Leader&gt;a&quot;, &quot;:call RunAllSpecs()&lt;CR&gt;&quot;, opt)
+
+-- 列表快捷键
+pluginKeys.nvimTreeList = { -- 打开文件或文件夹
+	{ key = { &quot;&lt;CR&gt;&quot;, &quot;o&quot;, &quot;&lt;2-LeftMouse&gt;&quot; }, action = &quot;edit&quot; },
+	-- 分屏打开文件
+	{ key = &quot;v&quot;, action = &quot;vsplit&quot; },
+	-- 显示隐藏文件
+	{ key = &quot;h&quot;, action = &quot;split&quot; },
+	-- Ignore (node_modules)
+	{ key = &quot;i&quot;, action = &quot;toggle_ignored&quot; },
+	-- Hide (dotfiles)
+	{ key = &quot;.&quot;, action = &quot;toggle_dotfiles&quot; },
+	-- 文件操作
+	{ key = &quot;&lt;F5&gt;&quot;, action = &quot;refresh&quot; },
+	{ key = &quot;a&quot;, action = &quot;create&quot; },
+	{ key = &quot;d&quot;, action = &quot;remove&quot; },
+	{ key = &quot;r&quot;, action = &quot;rename&quot; },
+	{ key = &quot;x&quot;, action = &quot;cut&quot; },
+	{ key = &quot;c&quot;, action = &quot;copy&quot; },
+	{ key = &quot;p&quot;, action = &quot;paste&quot; },
+	-- 进入下一级
+	{ key = { &quot;]&quot; }, action = &quot;cd&quot; },
+	-- 进入上一级
+	{ key = { &quot;[&quot; }, action = &quot;dir_up&quot; },
+	-- mac
+	{ key = &quot;s&quot;, action = &quot;open&quot; },
+	-- windows
+	-- { key = 's', action = 'system_open' },
+}
+-- bufferline
+-- 左右Tab切换
+map(&quot;n&quot;, &quot;&lt;C-h&gt;&quot;, &quot;:BufferLineCyclePrev&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-l&gt;&quot;, &quot;:BufferLineCycleNext&lt;CR&gt;&quot;, opt)
+-- &quot;moll/vim-bbye&quot; 关闭当前 buffer
+map(&quot;n&quot;, &quot;&lt;leader&gt;bc&quot;, &quot;:Bdelete!&lt;CR&gt;&quot;, opt)
+-- 关闭左/右侧标签页
+map(&quot;n&quot;, &quot;&lt;leader&gt;bh&quot;, &quot;:BufferLineCloseLeft&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;leader&gt;bl&quot;, &quot;:BufferLineCloseRight&lt;CR&gt;&quot;, opt)
+-- 关闭其他标签页
+map(&quot;n&quot;, &quot;&lt;leader&gt;bo&quot;, &quot;:BufferLineCloseRight&lt;CR&gt;:BufferLineCloseLeft&lt;CR&gt;&quot;, opt)
+-- 关闭选中标签页
+map(&quot;n&quot;, &quot;&lt;leader&gt;bp&quot;, &quot;:BufferLinePickClose&lt;CR&gt;&quot;, opt)
+
+-- Telescope
+map(&quot;n&quot;, &quot;&lt;C-p&gt;&quot;, &quot;:Telescope find_files&lt;CR&gt;&quot;, opt)
+map(&quot;n&quot;, &quot;&lt;C-f&gt;&quot;, &quot;:Telescope live_grep&lt;CR&gt;&quot;, opt)
+-- Telescope 列表中 插入模式快捷键
+pluginKeys.telescopeList = {
+	i = {
+		-- 上下移动
+		[&quot;&lt;C-j&gt;&quot;] = &quot;move_selection_next&quot;,
+		[&quot;&lt;C-k&gt;&quot;] = &quot;move_selection_previous&quot;,
+		-- [&quot;&lt;C-n&gt;&quot;] = &quot;move_selection_next&quot;,
+		-- [&quot;&lt;C-p&gt;&quot;] = &quot;move_selection_previous&quot;,
+		-- 历史记录
+		[&quot;&lt;C-n&gt;&quot;] = &quot;cycle_history_next&quot;,
+		[&quot;&lt;C-p&gt;&quot;] = &quot;cycle_history_prev&quot;,
+		-- 关闭窗口
+		-- [&quot;&lt;esc&gt;&quot;] = actions.close,
+		[&quot;&lt;C-c&gt;&quot;] = &quot;close&quot;,
+		-- 预览窗口上下滚动
+		[&quot;&lt;C-u&gt;&quot;] = &quot;preview_scrolling_up&quot;,
+		[&quot;&lt;C-d&gt;&quot;] = &quot;preview_scrolling_down&quot;,
+	},
+}
+
+-- 代码注释插件
+-- see ./lua/plugin-config/comment.lua
+pluginKeys.comment = {
+	toggler = {
+		line = &quot;gcc&quot;,
+		block = &quot;gbc&quot;,
+	},
+	opleader = {
+		line = &quot;gc&quot;,
+		bock = &quot;gb&quot;,
+	},
+}
+-- ctrl + /
+map(&quot;n&quot;, &quot;&lt;c-_&gt;&quot;, &quot;gcc&quot;, { noremap = false })
+map(&quot;i&quot;, &quot;&lt;c-_&gt;&quot;, &quot;gcc&quot;, { noremap = false })
+map(&quot;v&quot;, &quot;&lt;c-_&gt;&quot;, &quot;gcc&quot;, { noremap = false })
+
+-- lsp 回调函数快捷键设置
+pluginKeys.mapLSP = function(mapbuf)
+	-- rename
+	--[[
+  Lspsaga 替换 rn
+  mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;rn&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.rename()&lt;CR&gt;&quot;, opt)
+  --]]
+	mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;rn&quot;, &quot;&lt;cmd&gt;Lspsaga rename&lt;CR&gt;&quot;, opt)
+	-- code action
+	--[[
+  Lspsaga 替换 ca
+  mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;ca&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.code_action()&lt;CR&gt;&quot;, opt)
+  --]]
+	mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;ca&quot;, &quot;&lt;cmd&gt;Lspsaga code_action&lt;CR&gt;&quot;, opt)
+	-- go xx
+	--[[
+    mapbuf('n', 'gd', '&lt;cmd&gt;Lspsaga preview_definition&lt;CR&gt;', opt)
+  --]]
+	mapbuf(&quot;n&quot;, &quot;gd&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.definition()&lt;CR&gt;&quot;, opt)
+	--[[
+  Lspsaga 替换 gh
+  mapbuf(&quot;n&quot;, &quot;gh&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.hover()&lt;CR&gt;&quot;, opt)
+  --]]
+	mapbuf(&quot;n&quot;, &quot;gh&quot;, &quot;&lt;cmd&gt;Lspsaga hover_doc&lt;cr&gt;&quot;, opt)
+	--[[
+  Lspsaga 替换 gr
+  mapbuf(&quot;n&quot;, &quot;gr&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.references()&lt;CR&gt;&quot;, opt)
+  --]]
+	mapbuf(&quot;n&quot;, &quot;gr&quot;, &quot;&lt;cmd&gt;Lspsaga lsp_finder&lt;CR&gt;&quot;, opt)
+	--[[
+  Lspsaga 替换 gp, gj, gk
+  mapbuf(&quot;n&quot;, &quot;gp&quot;, &quot;&lt;cmd&gt;lua vim.diagnostic.open_float()&lt;CR&gt;&quot;, opt)
+  mapbuf(&quot;n&quot;, &quot;gj&quot;, &quot;&lt;cmd&gt;lua vim.diagnostic.goto_next()&lt;CR&gt;&quot;, opt)
+  mapbuf(&quot;n&quot;, &quot;gk&quot;, &quot;&lt;cmd&gt;lua vim.diagnostic.goto_prev()&lt;CR&gt;&quot;, opt)
+  --]]
+	-- diagnostic
+	mapbuf(&quot;n&quot;, &quot;gp&quot;, &quot;&lt;cmd&gt;Lspsaga show_line_diagnostics&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;gj&quot;, &quot;&lt;cmd&gt;Lspsaga diagnostic_jump_next&lt;cr&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;gk&quot;, &quot;&lt;cmd&gt;Lspsaga diagnostic_jump_prev&lt;cr&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;f&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.formatting()&lt;CR&gt;&quot;, opt)
+	-- 未用
+	mapbuf(&quot;n&quot;, &quot;gD&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.declaration()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;gi&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.implementation()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;leader&gt;q&quot;, &quot;&lt;cmd&gt;lua vim.diagnostic.setloclist()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;C-k&gt;&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.signature_help()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;space&gt;wa&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.add_workspace_folder()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;space&gt;wr&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.remove_workspace_folder()&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;space&gt;wl&quot;, &quot;&lt;cmd&gt;lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;&lt;space&gt;D&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.type_definition()&lt;CR&gt;&quot;, opt)
+end
+
+-- typescript 快捷键
+pluginKeys.mapTsLSP = function(mapbuf)
+	mapbuf(&quot;n&quot;, &quot;gs&quot;, &quot;:TSLspOrganize&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;gr&quot;, &quot;:TSLspRenameFile&lt;CR&gt;&quot;, opt)
+	mapbuf(&quot;n&quot;, &quot;gi&quot;, &quot;:TSLspImportAll&lt;CR&gt;&quot;, opt)
+end
+
+-- nvim-cmp 自动补全
+pluginKeys.cmp = function(cmp)
+	local feedkey = function(key, mode)
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+	end
+	local has_words_before = function()
+		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match(&quot;%s&quot;) == nil
+	end
+
+	return {
+		-- 上一个
+		[&quot;&lt;C-k&gt;&quot;] = cmp.mapping.select_prev_item(),
+		-- 下一个
+		[&quot;&lt;C-j&gt;&quot;] = cmp.mapping.select_next_item(),
+		-- 出现补全
+		[&quot;&lt;A-.&gt;&quot;] = cmp.mapping(cmp.mapping.complete(), { &quot;i&quot;, &quot;c&quot; }),
+		-- 取消
+		[&quot;&lt;A-,&gt;&quot;] = cmp.mapping({
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
+		}),
+		-- 确认
+		-- Accept currently selected item. If none selected, `select` first item.
+		-- Set `select` to `false` to only confirm explicitly selected items.
+		[&quot;&lt;CR&gt;&quot;] = cmp.mapping.confirm({
+			select = true,
+			behavior = cmp.ConfirmBehavior.Replace,
+		}),
+		-- ['&lt;C-y&gt;'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `&lt;C-y&gt;` mapping.
+		-- 如果窗口内容太多，可以滚动
+		[&quot;&lt;C-u&gt;&quot;] = cmp.mapping(cmp.mapping.scroll_docs(-4), { &quot;i&quot;, &quot;c&quot; }),
+		[&quot;&lt;C-d&gt;&quot;] = cmp.mapping(cmp.mapping.scroll_docs(4), { &quot;i&quot;, &quot;c&quot; }),
+		-- snippets 跳转
+		[&quot;&lt;C-l&gt;&quot;] = cmp.mapping(function(_)
+			if vim.fn[&quot;vsnip#available&quot;](1) == 1 then
+				feedkey(&quot;&lt;Plug&gt;(vsnip-expand-or-jump)&quot;, &quot;&quot;)
+			end
+		end, { &quot;i&quot;, &quot;s&quot; }),
+		[&quot;&lt;C-h&gt;&quot;] = cmp.mapping(function()
+			if vim.fn[&quot;vsnip#jumpable&quot;](-1) == 1 then
+				feedkey(&quot;&lt;Plug&gt;(vsnip-jump-prev)&quot;, &quot;&quot;)
+			end
+		end, { &quot;i&quot;, &quot;s&quot; }),
+
+		-- super Tab
+		[&quot;&lt;Tab&gt;&quot;] = cmp.mapping(function(fallback)
+			local copilot_keys = vim.fn[&quot;copilot#Accept&quot;]()
+
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif copilot_keys ~= &quot;&quot; then
+				-- prioritise copilot over snippets
+				-- Copilot keys do not need to be wrapped in termcodes
+				vim.api.nvim_feedkeys(copilot_keys, &quot;i&quot;, true)
+			elseif vim.fn[&quot;vsnip#available&quot;](1) == 1 then
+				feedkey(&quot;&lt;Plug&gt;(vsnip-expand-or-jump)&quot;, &quot;&quot;)
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback() -- The fallback function sends a already mapped key. In this case, it's probably `&lt;Tab&gt;`.
+			end
+		end, { &quot;i&quot;, &quot;s&quot; }),
+
+		[&quot;&lt;S-Tab&gt;&quot;] = cmp.mapping(function()
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif vim.fn[&quot;vsnip#jumpable&quot;](-1) == 1 then
+				feedkey(&quot;&lt;Plug&gt;(vsnip-jump-prev)&quot;, &quot;&quot;)
+			end
+		end, { &quot;i&quot;, &quot;s&quot; }),
+		-- end of super Tab
+	}
+end
+
+-- gitsigns
+pluginKeys.gitsigns_on_attach = function(bufnr)
+	local gs = package.loaded.gitsigns
+
+	local function map(mode, l, r, opts)
+		opts = opts or {}
+		opts.buffer = bufnr
+		vim.keymap.set(mode, l, r, opts)
+	end
+
+	-- Navigation
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gj&quot;, function()
+		if vim.wo.diff then
+			return &quot;]c&quot;
+		end
+		vim.schedule(function()
+			gs.next_hunk()
+		end)
+		return &quot;&lt;Ignore&gt;&quot;
+	end, { expr = true })
+
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gk&quot;, function()
+		if vim.wo.diff then
+			return &quot;[c&quot;
+		end
+		vim.schedule(function()
+			gs.prev_hunk()
+		end)
+		return &quot;&lt;Ignore&gt;&quot;
+	end, { expr = true })
+
+	map({ &quot;n&quot;, &quot;v&quot; }, &quot;&lt;leader&gt;gs&quot;, &quot;:Gitsigns stage_hunk&lt;CR&gt;&quot;)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gS&quot;, gs.stage_buffer)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gu&quot;, gs.undo_stage_hunk)
+	map({ &quot;n&quot;, &quot;v&quot; }, &quot;&lt;leader&gt;gr&quot;, &quot;:Gitsigns reset_hunk&lt;CR&gt;&quot;)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gR&quot;, gs.reset_buffer)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gp&quot;, gs.preview_hunk)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gb&quot;, function()
+		gs.blame_line({ full = true })
+	end)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gd&quot;, gs.diffthis)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gD&quot;, function()
+		gs.diffthis(&quot;~&quot;)
+	end)
+	-- toggle
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gtd&quot;, gs.toggle_deleted)
+	map(&quot;n&quot;, &quot;&lt;leader&gt;gtb&quot;, gs.toggle_current_line_blame)
+	-- Text object
+	map({ &quot;o&quot;, &quot;x&quot; }, &quot;ig&quot;, &quot;:&lt;C-U&gt;Gitsigns select_hunk&lt;CR&gt;&quot;)
+end
+
+return pluginKeys
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://rubyyc.github.io/post/yYNeTYCKE/">
+                  <h3 class="post-title">
+                    我经常使用的命令缩写
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '79f46a6a98e80c6e9d93',
+        clientSecret: 'bc842ca538aacbb4084e657b3b62ce81c33ae77f',
+        repo: 'rubyyc.github.io',
+        owner: 'rubyyc',
+        admin: ['rubyyc'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
